@@ -9,6 +9,13 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
+
+  private final TodoRepository todoRepository;
+
+  public TodoController(TodoRepository repository) {
+    this.todoRepository = repository;
+  }
+
   @ResponseStatus(HttpStatus.OK)
   @GetMapping
   public List<Todo> getAllTodos() {
@@ -17,5 +24,17 @@ public class TodoController {
     todo.setTitle("An item");
     todo.setDone(false);
     return List.of(todo);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping("/{id}")
+  public Todo getTodoById(String id) {
+    return todoRepository.findById(id).orElseThrow();
+  }
+
+  @ResponseStatus(HttpStatus.CREATED)
+  @PostMapping
+  public void createNewBook(Todo todo) {
+    todoRepository.save(todo);
   }
 }
