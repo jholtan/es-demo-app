@@ -11,5 +11,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 21
-      - run: ./gradlew test
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+      - run: ./gradlew test --no-daemon
