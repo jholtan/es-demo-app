@@ -1,0 +1,15 @@
+name: Build and test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run unit tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+      - run: ./gradlew test
